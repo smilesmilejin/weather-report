@@ -14,6 +14,9 @@ const state = {
     // Wave 3
     cityNameInput: null,
     headerCityName: null, 
+
+    // Wave 6: Resetting the City Name
+    cityNameReset: null, 
 }
 
 
@@ -37,10 +40,12 @@ const handleDecreaseTempControlClicked = () => {
 }
 
 
+
 const registerEvents = () => {
     state.increaseTempControl.addEventListener ('click', handleIncreaseTempControlClicked);
     state.decreaseTempControl.addEventListener ('click', handleDecreaseTempControlClicked);
     state.cityNameInput.addEventListener('input', changeHeaderCityName);
+    state.cityNameReset.addEventListener('click', resetCityName);
 }
 
 
@@ -102,7 +107,12 @@ const changeHeaderCityName = () => {
     state.headerCityName.textContent = state.cityNameInput.value;
 }
 
-// Wave 3: Naming the City
+// Wave 6: Resetting the City Name
+const resetCityName = () => {
+    state.cityNameInput.value = 'Seattle';
+    state.headerCityName.textContent = state.cityNameInput.value;
+}
+
 const onloaded = () => {
     loadedControls();
     registerEvents();
@@ -127,6 +137,8 @@ const loadedControls = () => {
 
     state.headerCityName = document.getElementById('headerCityName');
 
+    // Wave 6
+    state.cityNameReset = document.getElementById('cityNameReset');
 }
 
 
