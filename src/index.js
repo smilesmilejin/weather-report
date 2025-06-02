@@ -17,6 +17,13 @@ const state = {
 
     // Wave 6: Resetting the City Name
     cityNameReset: null, 
+
+    // Wave 5: Selecting the Sky
+    sky: null, 
+    skySelect: null,
+
+    garden: null
+
 }
 
 
@@ -46,6 +53,7 @@ const registerEvents = () => {
     state.decreaseTempControl.addEventListener ('click', handleDecreaseTempControlClicked);
     state.cityNameInput.addEventListener('input', changeHeaderCityName);
     state.cityNameReset.addEventListener('click', resetCityName);
+    state.skySelect.addEventListener('change', changeSkies);
 }
 
 
@@ -113,12 +121,45 @@ const resetCityName = () => {
     state.headerCityName.textContent = state.cityNameInput.value;
 }
 
+// Wave 5: Selecting the Sky
+// Selection Changes Sky
+// Our solution uses the following sky options, which you may use if desired:
+
+// Option	Sky
+// Sunny	"☁️ ☁️ ☁️ ☀️ ☁️ ☁️"
+// Cloudy	"☁️☁️ ☁️ ☁️☁️ ☁️ 🌤 ☁️ ☁️☁️"
+// Rainy	"🌧🌈⛈🌧🌧💧⛈🌧🌦🌧💧🌧🌧"
+// Snowy	"🌨❄️🌨🌨❄️❄️🌨❄️🌨❄️❄️🌨🌨"
+const changeSkies = () => {
+    // console.log('changed skies');
+    const curSky = state.skySelect.value;
+    // console.log(curSky);
+    const skyStyle = curSky.toLowerCase();
+    // Remove all possible sky classes first
+    state.garden.classList.remove("sunny", "cloudy", "rainy", "snowy");
+
+    if (curSky === 'Sunny') {
+        state.sky.textContent = "☁️ ☁️ ☁️ ☀️ ☁️ ☁️";
+    } else if (curSky === 'Cloudy') {
+        state.sky.textContent = "☁️☁️ ☁️ ☁️☁️ ☁️ 🌤 ☁️ ☁️☁️";
+
+    } else if (curSky === 'Rainy') {
+        state.sky.textContent = "🌧🌈⛈🌧🌧💧⛈🌧🌦🌧💧🌧🌧";
+    } else if (curSky === 'Snowy') {
+        state.sky.textContent = "🌨❄️🌨🌨❄️❄️🌨❄️🌨❄️❄️🌨🌨";
+    }
+
+    state.garden.classList.add(skyStyle);
+}
+
+
 const onloaded = () => {
     loadedControls();
     registerEvents();
     changeTempColors();
     changeLandscapes();
     changeHeaderCityName();
+    changeSkies();
 }
 
 
@@ -139,6 +180,12 @@ const loadedControls = () => {
 
     // Wave 6
     state.cityNameReset = document.getElementById('cityNameReset');
+
+    // Wave 5
+    state.sky = document.getElementById('sky');
+    state.skySelect = document.getElementById('skySelect');
+
+    state.garden = document.getElementById('gardenContent');
 }
 
 

@@ -175,3 +175,29 @@ body {
 #headerCityName {
   white-space: pre-wrap;
 }
+
+/* Wave 5 Changing the backgroud color of class garden_content */
+
+/* .garden__content {
+    background-color: black;
+} */
+
+/* #gardenContent {
+    background-color: black;
+} */
+
+.sunny {
+    background-color: rgb(221, 255, 255);
+}
+
+.cloudy {
+    background-color: lightgrey;
+}
+
+.rainy {
+    background-color: lightblue;
+}
+
+.snowy {
+    background-color: lightsteelblue;
+}
