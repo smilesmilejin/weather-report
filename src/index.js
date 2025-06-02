@@ -1,6 +1,6 @@
 "use strict"; // more error reporting help from the browser, we can request strict behavior.
 
-//  Wave 2 
+// Wave 2: Increase and Decrease Temperature 
 console.log('loaded');
 const state = {
     // <span id="increaseTempControl">⬆️</span>
@@ -10,6 +10,10 @@ const state = {
     increaseTempControl: null,
     decreaseTempControl: null,
     landscape: null,
+
+    // Wave 3
+    cityNameInput: null,
+    headerCityName: null, 
 }
 
 
@@ -36,6 +40,7 @@ const handleDecreaseTempControlClicked = () => {
 const registerEvents = () => {
     state.increaseTempControl.addEventListener ('click', handleIncreaseTempControlClicked);
     state.decreaseTempControl.addEventListener ('click', handleDecreaseTempControlClicked);
+    state.cityNameInput.addEventListener('input', changeHeaderCityName);
 }
 
 
@@ -81,11 +86,29 @@ const changeLandscapes = () => {
     };
 }
 
+
+const changeHeaderCityName = () => {
+    // .value to get the value of the user input
+    // state.headerCityName.textContent = '!!!!!!!!!!';
+
+    // Set Default city in input
+
+    //  Will NOT work, set the default on loadedControls instead
+    // If you force-set the input to "Seattle" immediately when it’s empty, 
+    // the user can’t clear or delete the text — it just snaps back to "Seattle" as soon as the input is empty.
+    // if (state.cityNameInput.value === '') {
+    //     state.cityNameInput.value = 'Seattle';
+    // }
+    state.headerCityName.textContent = state.cityNameInput.value;
+}
+
+// Wave 3: Naming the City
 const onloaded = () => {
     loadedControls();
     registerEvents();
     changeTempColors();
     changeLandscapes();
+    changeHeaderCityName();
 }
 
 
@@ -94,6 +117,16 @@ const loadedControls = () => {
     state.increaseTempControl = document.getElementById('increaseTempControl');
     state.decreaseTempControl = document.getElementById('decreaseTempControl');
     state.landscape = document.getElementById('landscape');
+
+    // Wave 3
+    state.cityNameInput = document.getElementById('cityNameInput');
+    // Set default only if empty on load
+    if (!state.cityNameInput.value) {
+        state.cityNameInput.value = 'Seattle';
+    }
+
+    state.headerCityName = document.getElementById('headerCityName');
+
 }
 
 

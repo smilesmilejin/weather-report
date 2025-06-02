@@ -169,3 +169,9 @@ body {
     /* cursor: pointer;  */ 
     cursor: default;
 }
+
+/* multiple spaces between words collapse into a single space by default — this is standard HTML */ 
+/*  white-space: pre-wrap; This preserves all spaces exactly, including trailing spaces.*/ 
+#headerCityName {
+  white-space: pre-wrap;
+}
