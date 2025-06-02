@@ -162,3 +162,10 @@ body {
 .snowy {
     background-color: lightsteelblue;
 }
+
+
+#increaseTempControl, #decreaseTempControl {
+    /* This shows hand pointer instead */
+    /* cursor: pointer;  */ 
+    cursor: default;
+}
