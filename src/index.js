@@ -127,6 +127,9 @@ const getWeatherForCity = () => {
             const tempKelvin = weatherResponse.data.main.temp;
             const tempFahrenheit = Math.round((tempKelvin - 273.15) * 9 / 5 + 32);
             document.getElementById('tempValue').textContent = tempFahrenheit;
+
+            changeTempColors();
+            changeLandscapes();
         })
         .catch(error => {
             console.error('Error fetching weather:', error);
