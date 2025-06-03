@@ -22,7 +22,10 @@ const state = {
     sky: null, 
     skySelect: null,
 
-    garden: null
+    garden: null,
+
+    // Wave 4
+    currentTempButton: null,
 
 }
 
@@ -46,7 +49,95 @@ const handleDecreaseTempControlClicked = () => {
     changeLandscapes();
 }
 
+// Wave 4 Calling API s
+const findCityLatAndLon = (city) => {
+    let lat, lon;
+    const location_get_url = 'http://127.0.0.1:5000/location'
+    return axios.get (location_get_url, {
+        params: {
+            q:city
+        }
+    })
+    .then ((response)=> {
+        lat= response.data[0].lat;
+        lon = response.data[0].lon;
+        console.log('success in findCityLatAndLon', lat, lon);
 
+        return {lat,lon};
+
+    })
+    .catch((error)=> {
+        console.log('error in findCityLatAndLon!');
+        console.log(error);      
+    })
+}
+
+const findTemp = (latitude,longitude) => {
+    let temp;
+    const weather_get_url = 'http://127.0.0.1:5000/weather'
+    return axios.get (weather_get_url, {
+        params: {
+            lat: latitude,
+            lon: longitude,
+            // does NOT work
+            // units: 'imperial', // the default temp is Kevin, this will make it Farenheit
+        }
+    })
+    .then ((response)=> {
+        temp = response.data['main']['temp']
+        console.log('success in findTemp', temp);
+        return temp
+    })
+    .catch((error)=> {
+        console.log(error);
+    })
+};
+
+const convertKevinToFahrenheit =(temp) => {
+    let Fahrenheit = (9/5) * (temp - 273.15) + 32;
+    return Math.round(Fahrenheit)
+
+}
+
+
+const changeCurrentTemp = async () => {
+    // Get the current city
+    const city = state.cityNameInput.value;
+    // console.log(city);
+
+
+    // find the lat and lon of city 
+
+    // // Method 1
+    // const response = await findCityLatAndLon(city);
+    // console.log(response);
+    // console.log(response.lat);
+    // console.log(response.lon);
+
+    // const temp = await findTemp(response.lat, response.lon)
+    // console.log(temp)
+
+    // Method 2
+    const {lat, lon} = await findCityLatAndLon(city);
+    console.log(lat);
+    console.log(lon);
+
+    // find the temparature based on lat and lon
+    // const temp = findTemp(47.6038321,-122.3301)
+    const temp = await findTemp(lat,lon);
+    console.log(temp)
+
+    const tempFahrenheit = convertKevinToFahrenheit(temp);
+    console.log(tempFahrenheit)
+
+    // chagne the tempValue to current temp in Fahrenheit
+    // change temp colors and Landscapes
+    state.tempValue.textContent= tempFahrenheit;
+    changeTempColors();
+    changeLandscapes();
+
+    // return tempFahrenheit;
+}
 
 const registerEvents = () => {
     state.increaseTempControl.addEventListener ('click', handleIncreaseTempControlClicked);
@@ -54,6 +145,8 @@ const registerEvents = () => {
     state.cityNameInput.addEventListener('input', changeHeaderCityName);
     state.cityNameReset.addEventListener('click', resetCityName);
     state.skySelect.addEventListener('change', changeSkies);
+
+    state.currentTempButton.addEventListener('click', changeCurrentTemp);
 }
 
 
@@ -186,6 +279,9 @@ const loadedControls = () => {
     state.skySelect = document.getElementById('skySelect');
 
     state.garden = document.getElementById('gardenContent');
+
+    // Wave 4: Calling APIs
+    state.currentTempButton = document.getElementById('currentTempButton');
 }
 
 
