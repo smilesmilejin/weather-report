@@ -52,7 +52,11 @@ const handleDecreaseTempControlClicked = () => {
 // Wave 4 Calling API s
 const findCityLatAndLon = (city) => {
     let lat, lon;
-    const location_get_url = 'http://127.0.0.1:5000/location'
+
+    // const location_get_url = 'http://127.0.0.1:5000/location';
+
+    // Using Deployed Proxy Server url
+    const location_get_url = 'https://weather-report-proxy-server-e84x.onrender.com/location';
     return axios.get (location_get_url, {
         params: {
             q:city
@@ -74,7 +78,10 @@ const findCityLatAndLon = (city) => {
 
 const findTemp = (latitude,longitude) => {
     let temp;
-    const weather_get_url = 'http://127.0.0.1:5000/weather'
+    // const weather_get_url = 'http://127.0.0.1:5000/weather'
+
+    // Using Deployed Proxy Server url
+    const weather_get_url = 'https://weather-report-proxy-server-e84x.onrender.com/weather';
     return axios.get (weather_get_url, {
         params: {
             lat: latitude,
