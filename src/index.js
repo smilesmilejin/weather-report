@@ -13,10 +13,10 @@ const state = {
 
     // Wave 3
     cityNameInput: null,
-    headerCityName: null, 
+    headerCityName: null,
 
     // Wave 6: Resetting the City Name
-    cityNameReset: null, 
+    cityNameReset: null,
 }
 
 
@@ -42,8 +42,8 @@ const handleDecreaseTempControlClicked = () => {
 
 
 const registerEvents = () => {
-    state.increaseTempControl.addEventListener ('click', handleIncreaseTempControlClicked);
-    state.decreaseTempControl.addEventListener ('click', handleDecreaseTempControlClicked);
+    state.increaseTempControl.addEventListener('click', handleIncreaseTempControlClicked);
+    state.decreaseTempControl.addEventListener('click', handleDecreaseTempControlClicked);
     state.cityNameInput.addEventListener('input', changeHeaderCityName);
     state.cityNameReset.addEventListener('click', resetCityName);
 }
@@ -61,7 +61,7 @@ const changeTempColors = () => {
     if (temp >= 80) {
         state.tempValue.style.color = 'red';
     } else if (temp >= 70 && temp <= 79) {
-        state.tempValue.style.color = 'orange';changeLandscapes();
+        state.tempValue.style.color = 'orange'; changeLandscapes();
     } else if (temp >= 60 && temp <= 69) {
         state.tempValue.style.color = 'yellow';
     } else if (temp >= 50 && temp <= 59) {
@@ -106,6 +106,37 @@ const changeHeaderCityName = () => {
     // }
     state.headerCityName.textContent = state.cityNameInput.value;
 }
+
+
+
+// Wave 4: Calling APIs
+const getWeatherForCity = () => {
+    const cityName = document.getElementById('cityNameInput').value;
+
+    axios.get('http://127.0.0.1:5000/location', {
+        params: { q: cityName }
+    })
+        .then(response => {
+            const lat = response.data[0].lat;
+            const lon = response.data[0].lon;
+            return axios.get('http://127.0.0.1:5000/weather', {
+                params: { lat: lat, lon: lon }
+            });
+        })
+        .then(weatherResponse => {
+            const tempKelvin = weatherResponse.data.main.temp;
+            const tempFahrenheit = Math.round((tempKelvin - 273.15) * 9 / 5 + 32);
+            document.getElementById('tempValue').textContent = tempFahrenheit;
+        })
+        .catch(error => {
+            console.error('Error fetching weather:', error);
+            document.getElementById('tempValue').textContent = 'N/A';
+        });
+};
+
+document.getElementById('currentTempButton').addEventListener('click', getWeatherForCity);
+
+
 
 // Wave 6: Resetting the City Name
 const resetCityName = () => {
