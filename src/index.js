@@ -1,4 +1,4 @@
-"use strict"; // more error reporting help from the browser, we can request strict behavior.
+"use strict";
 
 console.log('loaded');
 
@@ -15,7 +15,7 @@ const state = {
 
     // Wave 4
     currentTempButton: null,
-    
+
     // Wave 5
     skySelect: null,
 
@@ -109,6 +109,7 @@ const getWeatherForCity = () => {
 const updateSky = () => {
     const sky = document.getElementById("skySelect").value;
     const skyDisplay = document.getElementById("sky");
+    const gardenContent = document.getElementById("gardenContent");
 
     const skyOptions = {
         sunny: "☁️ ☁️ ☁️ ☀️ ☁️ ☁️",
@@ -118,8 +119,8 @@ const updateSky = () => {
     };
 
     skyDisplay.textContent = skyOptions[sky];
-    skyDisplay.classList.remove('sunny', 'cloudy', 'rainy', 'snowy');
-    skyDisplay.classList.add(sky);
+    gardenContent.classList.remove('sunny', 'cloudy', 'rainy', 'snowy');
+    gardenContent.classList.add(sky);
 };
 
 
@@ -159,14 +160,13 @@ const loadedControls = () => {
 
     // Wave 3
     state.cityNameInput = document.getElementById('cityNameInput');
-    // Set default when Input is empty
     if (!state.cityNameInput.value) {
         state.cityNameInput.value = 'Seattle';
     }
 
     state.headerCityName = document.getElementById('headerCityName');
 
-    // Waves 4
+    // Wave 4
     state.currentTempButton = document.getElementById('currentTempButton');
 
     // Wave 5

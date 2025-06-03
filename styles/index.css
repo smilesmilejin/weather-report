@@ -3,16 +3,20 @@ h2 {
 }
 
 body {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    grid-template-rows: auto auto auto auto;
-    grid-gap: 1rem;
-
     font-family: "Rubik", sans-serif;
     font-size: 18px;
     background-color: #9FB3DF;
     color: #444444;
     margin: 2rem;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: auto auto auto auto;
+    grid-gap: 1rem;
 }
 
 .header__header {
@@ -25,7 +29,7 @@ body {
 
 .header__header>h1 {
     margin-right: 2rem;
-    font-size: 3em;
+    font-size: 3.5em;
 }
 
 .header__city-name {
@@ -44,7 +48,7 @@ body {
     border-radius: 8px;
     padding: 2rem;
     background-color: #FFF5F7;
-    border: 2px solid #C3B1E1
+    border: 2px solid #C3B1E1;
 }
 
 .temperature__section {
@@ -55,11 +59,11 @@ body {
     background-color: #c6b4e2;
     border: none;
     color: white;
-    padding: 15px 32px;
+    padding: 10px 25px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 16px;
+    font-size: 21px;
     border-radius: 10px;
     cursor: pointer;
 }
@@ -88,6 +92,7 @@ body {
     flex-direction: row;
     justify-content: space-around;
     justify-content: center;
+    gap: 3rem;
 }
 
 #tempValue {
@@ -105,6 +110,7 @@ body {
 
 .garden__section>h2 {
     color: white;
+    font-size: 2rem;
 }
 
 .garden__content {
@@ -119,7 +125,7 @@ body {
     flex-direction: column;
     justify-content: space-between;
 
-    border-radius: 8px;
+    border-radius: 16px;
     font-size: 2em;
 }
 
@@ -128,9 +134,10 @@ body {
     background-color: #c6b4e2;
     color: white;
     border-radius: 8px;
-    padding: 1rem;
+    padding: 0.8rem;
     font-family: "Rubik", sans-serif;
     cursor: pointer;
+    font-size: 16px;
 }
 
 .city-name__reset-btn:hover {
@@ -142,11 +149,11 @@ body {
 }
 
 .orange {
-    color: orange;
+    color: rgb(255, 172, 18);
 }
 
 .yellow {
-    color: gold;
+    color: rgb(247, 218, 57);
 }
 
 .yellow-green {
@@ -158,33 +165,39 @@ body {
 }
 
 .teal {
-    color: teal;
+    color: rgb(12, 189, 189);
 }
 
 .cloudy {
-    background-color: lightgrey;
+    background-color: #e6e6e6;
 }
 
 .sunny {
-    background-color: rgb(221, 255, 255);
+    background-color: #faf6d8;
 }
 
 .rainy {
-    background-color: lightblue;
+    background-color: #dbf0fa;
 }
 
 .snowy {
-    background-color: lightsteelblue;
+    background-color: #F0F8FF;
 }
-
 
 #increaseTempControl,
 #decreaseTempControl {
     cursor: pointer;
 }
 
-/* multiple spaces between words collapse into a single space by default — this is standard HTML */
-/*  white-space: pre-wrap; This preserves all spaces exactly, including trailing spaces.*/
 #headerCityName {
-    white-space: pre-wrap;
+    font-size: 2.5rem;
+}
+
+#skySelect,
+#cityNameInput {
+    font-size: 1rem;
+    padding: 0.5rem;
+    width: 200px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
 }
