@@ -10,7 +10,8 @@ body {
 
     font-family: "Rubik", sans-serif;
     font-size: 18px;
-    background-color: #1b69f9;
+    background-color: #9FB3DF;
+    color: #444444;
     margin: 2rem;
 }
 
@@ -42,7 +43,8 @@ body {
 .city-name__section {
     border-radius: 8px;
     padding: 2rem;
-    background-color: white;
+    background-color: #FFF5F7;
+    border: 2px solid #C3B1E1
 }
 
 .temperature__section {
@@ -50,7 +52,7 @@ body {
 }
 
 .temperature__section button {
-    background-color: #1b69f9;
+    background-color: #c6b4e2;
     border: none;
     color: white;
     padding: 15px 32px;
@@ -58,7 +60,12 @@ body {
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    border-radius: 10px
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.temperature__section button:hover {
+    background-color: #9FB3DF;
 }
 
 .sky__section {
@@ -80,14 +87,14 @@ body {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    /* justify-content: center; */
+    justify-content: center;
 }
 
 #tempValue {
     font-size: 3rem;
     margin-left: 1.5rem;
-    /* padding-right: 1rem; */
-    /* margin-right: 1.5rem; */
+    padding-right: 1rem;
+    margin-right: 1.5rem;
 }
 
 .temperature__controls {
@@ -101,6 +108,8 @@ body {
 }
 
 .garden__content {
+    background-color: #FFF5F7;
+    border: 2px solid #C3B1E1;
     min-height: 200px;
     max-width: fit-content;
     margin: auto;
@@ -116,11 +125,16 @@ body {
 
 .city-name__reset-btn {
     border: 0;
-    background-color: #1655cc;
+    background-color: #c6b4e2;
     color: white;
     border-radius: 8px;
     padding: 1rem;
     font-family: "Rubik", sans-serif;
+    cursor: pointer;
+}
+
+.city-name__reset-btn:hover {
+    background-color: #9FB3DF;
 }
 
 .red {
@@ -164,14 +178,13 @@ body {
 }
 
 
-#increaseTempControl, #decreaseTempControl {
-    /* This shows hand pointer instead */
-    /* cursor: pointer;  */ 
-    cursor: default;
+#increaseTempControl,
+#decreaseTempControl {
+    cursor: pointer;
 }
 
-/* multiple spaces between words collapse into a single space by default — this is standard HTML */ 
-/*  white-space: pre-wrap; This preserves all spaces exactly, including trailing spaces.*/ 
+/* multiple spaces between words collapse into a single space by default — this is standard HTML */
+/*  white-space: pre-wrap; This preserves all spaces exactly, including trailing spaces.*/
 #headerCityName {
-  white-space: pre-wrap;
+    white-space: pre-wrap;
 }
