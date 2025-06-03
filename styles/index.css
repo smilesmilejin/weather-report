@@ -12,6 +12,9 @@ body {
     font-size: 18px;
     background-color: #1b69f9;
     margin: 2rem;
+
+    /* Optional: Add transitions */
+    transition: background-color 0.5s ease-in-out;
 }
 
 .header__header {
@@ -112,6 +115,9 @@ body {
 
     border-radius: 8px;
     font-size: 2em;
+
+    /* Optinal: Add transitions */
+    transition: background-color 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
 }
 
 .city-name__reset-btn {
