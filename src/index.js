@@ -15,6 +15,10 @@ const state = {
     cityNameInput: null,
     headerCityName: null,
 
+    // // Wave 4 & 5
+    currentTempButton: null,
+    skySelect: null,
+
     // Wave 6: Resetting the City Name
     cityNameReset: null,
 }
@@ -46,6 +50,8 @@ const registerEvents = () => {
     state.decreaseTempControl.addEventListener('click', handleDecreaseTempControlClicked);
     state.cityNameInput.addEventListener('input', changeHeaderCityName);
     state.cityNameReset.addEventListener('click', resetCityName);
+    state.currentTempButton.addEventListener('click', getWeatherForCity);
+    state.skySelect.addEventListener('change', updateSky);
 }
 
 
@@ -113,13 +119,13 @@ const changeHeaderCityName = () => {
 const getWeatherForCity = () => {
     const cityName = document.getElementById('cityNameInput').value;
 
-    axios.get('http://127.0.0.1:5000/location', {
+    axios.get('https://weather-report-proxy-server-e84x.onrender.com/location', {
         params: { q: cityName }
     })
         .then(response => {
             const lat = response.data[0].lat;
             const lon = response.data[0].lon;
-            return axios.get('http://127.0.0.1:5000/weather', {
+            return axios.get('https://weather-report-proxy-server-e84x.onrender.com/weather', {
                 params: { lat: lat, lon: lon }
             });
         })
@@ -137,7 +143,24 @@ const getWeatherForCity = () => {
         });
 };
 
-document.getElementById('currentTempButton').addEventListener('click', getWeatherForCity);
+
+// Wave 5: Selecting the Sky
+const updateSky = () => {
+    const sky = document.getElementById("skySelect").value;
+    const skyDisplay = document.getElementById("sky");
+
+    const skyOptions = {
+        sunny: "☁️ ☁️ ☁️ ☀️ ☁️ ☁️",
+        cloudy: "☁️☁️ ☁️ ☁️☁️ ☁️ 🌤 ☁️ ☁️☁️",
+        rainy: "🌧🌈⛈🌧🌧💧⛈🌧🌦🌧💧🌧🌧",
+        snowy: "🌨❄️🌨🌨❄️❄️🌨❄️🌨❄️❄️🌨🌨",
+    };
+
+    skyDisplay.textContent = skyOptions[sky];
+    skyDisplay.classList.remove('sunny', 'cloudy', 'rainy', 'snowy');
+    skyDisplay.classList.add(sky);
+};
+
 
 
 
@@ -153,6 +176,7 @@ const onloaded = () => {
     changeTempColors();
     changeLandscapes();
     changeHeaderCityName();
+    updateSky();
 }
 
 
@@ -161,6 +185,9 @@ const loadedControls = () => {
     state.increaseTempControl = document.getElementById('increaseTempControl');
     state.decreaseTempControl = document.getElementById('decreaseTempControl');
     state.landscape = document.getElementById('landscape');
+    // Waves 4 & 5
+    state.currentTempButton = document.getElementById('currentTempButton');
+    state.skySelect = document.getElementById('skySelect');
 
     // Wave 3
     state.cityNameInput = document.getElementById('cityNameInput');
