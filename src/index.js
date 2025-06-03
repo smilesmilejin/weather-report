@@ -64,16 +64,17 @@ const registerEvents = () => {
 // 49 or below	Teal
 const changeTempColors = () => {
     const temp = Number(state.tempValue.textContent)
+    state.tempValue.classList.remove('red', 'orange', 'yellow', 'green', 'teal');
     if (temp >= 80) {
-        state.tempValue.style.color = 'red';
+        state.tempValue.classList.add('red');
     } else if (temp >= 70 && temp <= 79) {
-        state.tempValue.style.color = 'orange'; changeLandscapes();
+        state.tempValue.classList.add('orange');
     } else if (temp >= 60 && temp <= 69) {
-        state.tempValue.style.color = 'yellow';
+        state.tempValue.classList.add('yellow');
     } else if (temp >= 50 && temp <= 59) {
-        state.tempValue.style.color = 'green';
+        state.tempValue.classList.add('green');
     } else if (temp <= 49) {
-        state.tempValue.style.color = 'teal';
+        state.tempValue.classList.add('teal');
     };
 }
 
