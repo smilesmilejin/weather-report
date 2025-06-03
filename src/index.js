@@ -27,6 +27,10 @@ const state = {
     // Wave 4
     currentTempButton: null,
 
+    // Optional
+    tempUnit: null,
+    convertTempButton: null,
+
 }
 
 
@@ -140,12 +144,57 @@ const changeCurrentTemp = async () => {
     // chagne the tempValue to current temp in Fahrenheit
     // change temp colors and Landscapes
     state.tempValue.textContent= tempFahrenheit;
+    
+    // Optional
+    const tempUnit = state.tempUnit.textContent;
+    if (tempUnit == 'C') {
+        state.tempUnit.textContent = 'F';
+    }
+    // Optional End
+
     changeTempColors();
     changeLandscapes();
 
     // return tempFahrenheit;
 }
 
+
+// Optional
+// Bug between switches F and C the color does not changes
+
+const convertFahrenheitToCelsius = (curr_temp) => {
+    const c_temp = Math.round((curr_temp - 32) * 5 / 9);
+    return c_temp;
+};
+
+const convertCelsiusToFahrenheit = (curr_temp) => {
+    const f_temp = Math.round((curr_temp * 9 / 5) + 32);
+    return f_temp;
+};
+
+
+const handleConvertTempButtonClicked = () => {
+    const tempUnit = state.tempUnit.textContent;
+    // const curr_temp = parseInt(state.tempValue.textContent);
+    const curr_temp = state.tempValue.textContent;
+    console.log(tempUnit);
+    console.log(curr_temp);
+    if (tempUnit === 'F') {
+        // const c_temp = Math.round((curr_temp - 32) * 5 / 9);
+        const c_temp = convertFahrenheitToCelsius (curr_temp);
+        state.tempValue.textContent = c_temp;
+        state.tempUnit.textContent = 'C';
+        changeTempColors();
+    } else if (tempUnit == 'C') {
+        // const f_temp = Math.round((curr_temp * 9 / 5) + 32);
+        const f_temp = convertCelsiusToFahrenheit(curr_temp);
+        state.tempValue.textContent = f_temp;
+        state.tempUnit.textContent = 'F';
+        changeTempColors();
+    };
+};
+
+// Optional End
 const registerEvents = () => {
     state.increaseTempControl.addEventListener ('click', handleIncreaseTempControlClicked);
     state.decreaseTempControl.addEventListener ('click', handleDecreaseTempControlClicked);
@@ -154,6 +203,9 @@ const registerEvents = () => {
     state.skySelect.addEventListener('change', changeSkies);
 
     state.currentTempButton.addEventListener('click', changeCurrentTemp);
+
+    // Optional Events
+    state.convertTempButton.addEventListener('click', handleConvertTempButtonClicked);
 }
 
 
@@ -165,11 +217,19 @@ const registerEvents = () => {
 // 50-59	Green
 // 49 or below	Teal
 const changeTempColors = () => {
-    const temp = Number(state.tempValue.textContent)
+    const curr_temp = Number(state.tempValue.textContent);
+    // Optional
+    // Check the tempUnit if C convert temp to f
+    let temp = curr_temp;
+    if (state.tempUnit.textContent === 'C') {
+        temp = convertCelsiusToFahrenheit(curr_temp);
+    }
+    // Optional End
+
     if (temp >= 80) {
         state.tempValue.style.color = 'red';
     } else if (temp >= 70 && temp <= 79) {
-        state.tempValue.style.color = 'orange';changeLandscapes();
+        state.tempValue.style.color = 'orange';
     } else if (temp >= 60 && temp <= 69) {
         state.tempValue.style.color = 'yellow';
     } else if (temp >= 50 && temp <= 59) {
@@ -187,7 +247,22 @@ const changeTempColors = () => {
 // 59 or below	"🌲🌲⛄️🌲⛄️🍂🌲🍁🌲🌲⛄️🍂🌲"
 
 const changeLandscapes = () => {
-    const temp = Number(state.tempValue.textContent)
+    // const temp = Number(state.tempValue.textContent)
+
+    // Optional
+    // Check the tempUnit if C convert temp to f
+    const curr_temp = Number(state.tempValue.textContent)
+    let temp = curr_temp;
+    if (state.tempUnit.textContent === 'C') {
+        temp = convertCelsiusToFahrenheit(curr_temp);
+    }
+    // F: 80, C: 27
+    // F: 70-79, C: 21-26
+    // F: 60-69, C: 16-21
+    // F: 50-59, C: 10-15
+    // F: 49: C:9
+    // Optional End
+
     if (temp >= 80) {
         state.landscape.textContent = "🌵__🐍_🦂_🌵🌵__🐍_🏜_🦂";
     } else if (temp >= 70 && temp <= 79) {
@@ -289,6 +364,11 @@ const loadedControls = () => {
 
     // Wave 4: Calling APIs
     state.currentTempButton = document.getElementById('currentTempButton');
+
+
+    // Optional 
+    state.tempUnit = document.getElementById('tempUnit');
+    state.convertTempButton = document.getElementById('convertTempBetweenCelAndFah');
 }
 
 
