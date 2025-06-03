@@ -208,3 +208,25 @@ body {
     text-align: center;
     background-color: orange;
 }
+
+.bodyRed {
+    background-color: rgb(239, 147, 147);
+}
+
+.bodyOrange {
+    background-color: rgb(242, 210, 152);
+}
+
+
+.bodyYellow {
+    background-color: rgb(207, 207, 135);
+} 
+
+.bodyGreen {
+    background-color: rgb(138, 175, 138);
+}
+
+.bodyTeal {
+    background-color: rgb(151, 222, 222);
+}
+

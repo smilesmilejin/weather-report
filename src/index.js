@@ -30,6 +30,8 @@ const state = {
     // Optional
     tempUnit: null,
     convertTempButton: null,
+    
+    body: null,
 
 }
 
@@ -195,18 +197,7 @@ const handleConvertTempButtonClicked = () => {
 };
 
 // Optional End
-const registerEvents = () => {
-    state.increaseTempControl.addEventListener ('click', handleIncreaseTempControlClicked);
-    state.decreaseTempControl.addEventListener ('click', handleDecreaseTempControlClicked);
-    state.cityNameInput.addEventListener('input', changeHeaderCityName);
-    state.cityNameReset.addEventListener('click', resetCityName);
-    state.skySelect.addEventListener('change', changeSkies);
 
-    state.currentTempButton.addEventListener('click', changeCurrentTemp);
-
-    // Optional Events
-    state.convertTempButton.addEventListener('click', handleConvertTempButtonClicked);
-}
 
 
 // Temperature Ranges Change Text Color
@@ -224,19 +215,35 @@ const changeTempColors = () => {
     if (state.tempUnit.textContent === 'C') {
         temp = convertCelsiusToFahrenheit(curr_temp);
     }
+
+    state.body.classList.remove("bodyRed", "bodyOrange", "bodyYellow", "bodyGreen", "bodyTeal");
     // Optional End
 
     if (temp >= 80) {
         state.tempValue.style.color = 'red';
+        // Optional
+        state.body.classList.add('bodyRed');
     } else if (temp >= 70 && temp <= 79) {
         state.tempValue.style.color = 'orange';
+        // Optional
+        state.body.classList.add('bodyOrange');
     } else if (temp >= 60 && temp <= 69) {
-        state.tempValue.style.color = 'yellow';
+        state.tempValue.style.color = 'gold';
+        // Optional
+        state.body.classList.add('bodyYellow');
     } else if (temp >= 50 && temp <= 59) {
         state.tempValue.style.color = 'green';
+        // Optional
+        state.body.classList.add('bodyGreen');
     } else if (temp <= 49) {
         state.tempValue.style.color = 'teal';
+        // Optional
+        state.body.classList.add('bodyTeal');
     };
+
+    // Optional
+    // state.body.classList.add('red');
+    // Optional End
 }
 
 // Temperature Ranges Change Landscape
@@ -328,6 +335,21 @@ const changeSkies = () => {
 }
 
 
+
+const registerEvents = () => {
+    state.increaseTempControl.addEventListener ('click', handleIncreaseTempControlClicked);
+    state.decreaseTempControl.addEventListener ('click', handleDecreaseTempControlClicked);
+    state.cityNameInput.addEventListener('input', changeHeaderCityName);
+    state.cityNameReset.addEventListener('click', resetCityName);
+    state.skySelect.addEventListener('change', changeSkies);
+
+    state.currentTempButton.addEventListener('click', changeCurrentTemp);
+
+    // Optional Events
+    state.convertTempButton.addEventListener('click', handleConvertTempButtonClicked);
+}
+
+
 const onloaded = () => {
     loadedControls();
     registerEvents();
@@ -369,6 +391,8 @@ const loadedControls = () => {
     // Optional 
     state.tempUnit = document.getElementById('tempUnit');
     state.convertTempButton = document.getElementById('convertTempBetweenCelAndFah');
+
+    state.body = document.querySelector('body');
 }
 
 
