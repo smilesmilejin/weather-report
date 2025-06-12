@@ -25,18 +25,11 @@ const state = {
 
 
 // Wave 2: Increase and Decrease Temperature 
-const handleIncreaseTempControlClicked = () => {
-    state.tempValue.textContent = Number(state.tempValue.textContent) + 1;
+const setTemp = (changeInTemp) => {
+    state.tempValue.textContent = +state.tempValue.textContent + changeInTemp;
     changeTempColors();
     changeLandscapes();
-}
-
-
-const handleDecreaseTempControlClicked = () => {
-    state.tempValue.textContent = +state.tempValue.textContent - 1;
-    changeTempColors();
-    changeLandscapes();
-}
+};
 
 
 const changeTempColors = () => {
@@ -132,8 +125,8 @@ const resetCityName = () => {
 
 
 const registerEvents = () => {
-    state.increaseTempControl.addEventListener('click', handleIncreaseTempControlClicked);
-    state.decreaseTempControl.addEventListener('click', handleDecreaseTempControlClicked);
+    state.increaseTempControl.addEventListener('click', () => { setTemp(1) });
+    state.decreaseTempControl.addEventListener('click', () => { setTemp(-1) });
     state.cityNameInput.addEventListener('input', changeHeaderCityName);
     state.cityNameReset.addEventListener('click', resetCityName);
     state.currentTempButton.addEventListener('click', getWeatherForCity);
@@ -142,7 +135,7 @@ const registerEvents = () => {
 
 
 const onloaded = () => {
-    loadedControls();
+    loadControls();
     registerEvents();
     changeTempColors();
     changeLandscapes();
@@ -151,7 +144,7 @@ const onloaded = () => {
 }
 
 
-const loadedControls = () => {
+const loadControls = () => {
     // Wave 2
     state.tempValue = document.getElementById('tempValue');
     state.increaseTempControl = document.getElementById('increaseTempControl');
@@ -177,4 +170,6 @@ const loadedControls = () => {
 }
 
 
-onloaded();
+document.addEventListener('DOMContentLoaded', () => {
+  onloaded();
+});
